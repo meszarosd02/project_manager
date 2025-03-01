@@ -23,7 +23,7 @@ model Task{
   id Int @id @default(autoincrement())
   name String
   description String
-  completed TaskState @default(NOT_STARTED)
+  task_state TaskState @default(NOT_STARTED)
 
   parentTaskId Int?
   parentTask Task? @relation("Subtasks", fields: [parentTaskId], references: [id])

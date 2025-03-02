@@ -10,7 +10,8 @@ type User = {
 type Project = {
     id: number,
     name: string,
-    tasks: Task[] | undefined
+    tasks: Task[] | undefined,
+    userId: number
 }
 
 type Task = {

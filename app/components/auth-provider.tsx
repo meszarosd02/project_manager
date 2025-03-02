@@ -1,18 +1,17 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { defaultUser } from "../lib/defaults";
 import { getUser } from "../actions/user";
 
 interface AuthContextType {
     user: User | undefined,
-    login: (userId: number) => void
+    login: (userId: number) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({children} : {children: React.ReactNode}) => {
-    const [user, setUser] = useState<User>(defaultUser);
+    const [user, setUser] = useState<User | undefined>(undefined);
 
     const login = async (userId: number) => {
         const fetched_user = await getUser(userId);

@@ -10,10 +10,11 @@ export async function getProjects(withTasks: boolean = false){
     }) as unknown as Project[]
 }
 
-export async function createProject(projectName: string){
+export async function createProject(projectName: string, userId: number){
     return await prisma.project.create({
         data: {
             name: projectName,
+            userId: userId
         }
     }) as Project
 }

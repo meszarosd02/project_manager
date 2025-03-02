@@ -1,7 +1,8 @@
 export const defaultProject: Project = {
     id: -1,
     name: "placeholder project",
-    tasks: []
+    tasks: [],
+    userId: 1
 }
 
 export const defaultUser: User = {

@@ -1,23 +1,12 @@
 "use server";
 
-import { AuthProvider } from "../components/auth-provider";
-import Dashboard from "../components/dashboard";
-import Sidebar from "../components/sidebar"
+import FullDashboard from "../components/full-dashboard";
 
 export default async function Home() {
 
   return (
     <>
-        <AuthProvider>
-            <div className="grid grid-cols-8">
-                <div className="col-span-1">
-                    <Sidebar></Sidebar>
-                </div>
-                <div className="col-span-7">
-                    <Dashboard></Dashboard>
-                </div>
-            </div>
-        </AuthProvider>
+        <FullDashboard></FullDashboard>
     </>
   );
 }

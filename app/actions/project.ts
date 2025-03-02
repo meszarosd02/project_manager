@@ -17,3 +17,7 @@ export async function createProject(projectName: string){
         }
     }) as Project
 }
+
+export async function isThereProject(){
+    return (await prisma.project.findMany()).length > 0
+}

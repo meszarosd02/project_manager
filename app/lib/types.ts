@@ -10,7 +10,9 @@ type Task = {
     description: string,
     task_state: TASK_STATE,
     parentTaskId: number | undefined,
+    parentTask: Task | undefined,
     projectId: number,
+    project: Project,
     createdAt: Date,
     updatedAt: Date
 }

@@ -1,3 +1,12 @@
+type User = {
+    id: number,
+    username: string,
+    firstName: string,
+    lastName: string,
+    projects: Project[] | undefined,
+    createdAt: Date
+}
+
 type Project = {
     id: number,
     name: string,

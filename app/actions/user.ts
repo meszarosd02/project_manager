@@ -1,11 +1,16 @@
 "use server";
 
+import { cookies } from "next/headers";
 import {prisma} from "../lib/prisma";
 
 export async function getUser(userId: number){
     return await prisma.user.findFirst({
         include: {
-            projects: true
+            projects: {
+                include: {
+                    tasks: true
+                }
+            }
         },
         where: {
             id: userId
@@ -24,4 +29,16 @@ export async function createUser(){
             }}
         }
     })
+}
+
+export async function setAuthCookie(userId: number){
+    (await cookies()).set("userId", `${userId}`, {
+        maxAge: 60 * 60 * 24
+    });
+}
+
+export async function getAuthCookie(){
+    const userId = (await cookies()).get("userId");
+    if (!userId) return undefined;
+    return Number(userId.value);
 }

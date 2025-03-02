@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { defaultProject } from "../lib/defaults";
 import { useAuth } from "./auth-provider";
+import Tasks from "./tasks";
 
 export default function Dashboard(){
     const [currentProject, setCurrentProject] = useState<Project>(defaultProject);
@@ -20,14 +21,30 @@ export default function Dashboard(){
         }
         getCurrentProject();    
     }, [authContext?.user])
+
+    useEffect(() => {
+        console.log(currentProject);
+    }, [currentProject])
+
     if(isLoading) return(
         <p className="text-3xl">Loading...</p>
     );
     return (
         <>
             <div className="grid grid-cols-12 grid-rows-12 h-screen">
-                <div className="row-span-1 col-span-12 bg-slate-700 p-4 shadow-lg">
-                    <p className="text-2xl">{currentProject.name}</p>
+                <div className="row-span-1 col-span-12 bg-slate-700 shadow-lg">
+                    <div className="grid grid-cols-2 grid-rows-1 p-2">
+                        <div className="col-span-1">
+                            <div className="flex justify-start">
+                                <p className="text-2xl">{currentProject.name}</p>
+                            </div>
+                        </div>
+                        <div className="col-span-1">
+                            <div className="flex justify-end">
+                                <button className="p-2 rounded-lg bg-slate-300 text-gray-500" onClick={() => console.log("klikk!")}>New Task</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="bg-slate-500 row-span-11 col-span-12">
                     <div className="grid grid-cols-12 grid-rows-12 gap-2 p-2 h-full">
@@ -38,7 +55,7 @@ export default function Dashboard(){
                             asd3
                         </div>
                         <div className="bg-slate-600 col-span-12 row-span-4">
-                            <Tasks></Tasks>
+                            {currentProject.tasks && <Tasks tasks={currentProject.tasks}></Tasks>}
                         </div>
                     </div>
                 </div>

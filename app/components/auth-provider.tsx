@@ -16,6 +16,7 @@ export const AuthProvider = ({children} : {children: React.ReactNode}) => {
     const login = async (userId: number) => {
         const fetched_user = await getUser(userId);
         setUser(fetched_user);
+        console.log(fetched_user);
     }
 
     return (

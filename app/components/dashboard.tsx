@@ -5,10 +5,13 @@ import { useEffect, useState } from "react";
 import { defaultProject } from "../lib/defaults";
 import { useAuth } from "./auth-provider";
 import Tasks from "./tasks";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard(){
     const [currentProject, setCurrentProject] = useState<Project>(defaultProject);
     const [isLoading, setIsLoading] = useState<Boolean>(true);
+
+    const router = useRouter();
 
     const authContext = useAuth();
     useEffect(() => {
@@ -41,7 +44,7 @@ export default function Dashboard(){
                         </div>
                         <div className="col-span-1">
                             <div className="flex justify-end">
-                                <button className="p-2 rounded-lg bg-slate-300 text-gray-500" onClick={() => console.log("klikk!")}>New Task</button>
+                                <button className="p-2 rounded-lg bg-slate-300 text-gray-500" onClick={() => {router.push("/tasks/new")}}>New Task</button>
                             </div>
                         </div>
                     </div>

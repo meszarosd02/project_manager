@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 import { getUser } from "../actions/user";
+import { User } from "../lib/types";
 
 interface AuthContextType {
     user: User | undefined,

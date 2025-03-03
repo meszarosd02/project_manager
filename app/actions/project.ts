@@ -43,6 +43,9 @@ export async function getProjectById(projectId: number){
     return await prisma.project.findUnique({
         where: {
             id: projectId
+        },
+        include: {
+            tasks: true
         }
     }) as unknown as Project
 }

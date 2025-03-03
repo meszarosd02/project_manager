@@ -1,7 +1,8 @@
 "use server";
 
 import { cookies } from "next/headers";
-import {prisma} from "../lib/prisma";
+import { prisma } from "../lib/prisma";
+import { User } from "../lib/types";
 
 export async function getUser(userId: number){
     return await prisma.user.findFirst({

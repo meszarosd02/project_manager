@@ -5,6 +5,7 @@ import { createProject, getProjects, isThereProject } from "../actions/project";
 import { createTask } from "../actions/task";
 import { useRouter } from "next/navigation";
 import { setAuthCookie } from "../actions/user";
+import { Project } from "../lib/types";
 
 export default function ProjectDisplay(){
     const [projects, setProjects] = useState<Project[]>([]);

@@ -1,4 +1,6 @@
-type User = {
+import { Priority, TaskState } from "@prisma/client";
+
+export type User = {
     id: number,
     username: string,
     firstName: string,
@@ -7,28 +9,23 @@ type User = {
     createdAt: Date
 }
 
-type Project = {
+export type Project = {
     id: number,
     name: string,
     tasks: Task[] | undefined,
     userId: number
 }
 
-type Task = {
+export type Task = {
     id: number,
     name: string,
     description: string,
-    task_state: TASK_STATE,
+    task_state: TaskState,
+    priority: Priority,
     parentTaskId: number | undefined,
     parentTask: Task | undefined,
     projectId: number,
     project: Project,
     createdAt: Date,
     updatedAt: Date
-}
-
-enum TASK_STATE {
-    NOT_COMPLETED,
-    IN_PROGRESS,
-    DONE
 }

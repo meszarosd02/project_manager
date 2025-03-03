@@ -1,5 +1,7 @@
 "use client";
 
+import { Task } from "../lib/types";
+
 export default function Tasks({tasks} : {tasks: Task[]}){
 
     return (

@@ -4,7 +4,6 @@ import { createContext, useContext, useState } from "react";
 import { Project } from "../lib/types";
 import { defaultProject } from "../lib/defaults";
 import { getProjectById } from "../actions/project";
-import { useAuth } from "./auth-provider";
 
 interface ProjectContextType {
     project: Project

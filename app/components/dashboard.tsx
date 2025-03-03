@@ -2,15 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-import { defaultProject } from "../lib/defaults";
 import { useAuth } from "./auth-provider";
 import Tasks from "./tasks";
 import { useRouter } from "next/navigation";
-import { Project } from "../lib/types";
 import { useProject } from "./project-provider";
 
 export default function Dashboard(){
-    const [currentProject, setCurrentProject] = useState<Project>(defaultProject);
     const [isLoading, setIsLoading] = useState<Boolean>(true);
 
     const router = useRouter();
@@ -21,17 +18,16 @@ export default function Dashboard(){
     useEffect(() => {
         const getCurrentProject = async () => {
             if(!authContext?.user?.projects) return;
-            const current_project = authContext?.user?.projects[0]
-            if(!current_project) return;
-            setCurrentProject(current_project);
+            projectContext?.setProjectContext(authContext?.user?.projects[0].id);
             setIsLoading(false);
         }
         getCurrentProject();    
     }, [authContext?.user])
 
     useEffect(() => {
-        console.log(currentProject);
-    }, [currentProject])
+        if(!projectContext) return;
+        console.log(projectContext.project);
+    }, [projectContext])
 
     if(isLoading) return(
         <p className="text-3xl">Loading...</p>
@@ -43,7 +39,7 @@ export default function Dashboard(){
                     <div className="grid grid-cols-2 grid-rows-1 p-2">
                         <div className="col-span-1">
                             <div className="flex justify-start">
-                                <p className="text-2xl">{currentProject.name}</p>
+                                <p className="text-2xl">{projectContext?.project && projectContext.project.name}</p>
                             </div>
                         </div>
                         <div className="col-span-1">
@@ -62,7 +58,7 @@ export default function Dashboard(){
                             asd3
                         </div>
                         <div className="bg-slate-600 col-span-12 row-span-4">
-                            {currentProject.tasks && <Tasks tasks={currentProject.tasks}></Tasks>}
+                            {projectContext?.project?.tasks && <Tasks tasks={projectContext?.project?.tasks}></Tasks>}
                         </div>
                     </div>
                 </div>

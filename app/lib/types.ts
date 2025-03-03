@@ -13,7 +13,9 @@ export type Project = {
     id: number,
     name: string,
     tasks: Task[] | undefined,
-    userId: number
+    userId: number,
+    createdAt: Date,
+    updatedAt: Date
 }
 
 export type Task = {

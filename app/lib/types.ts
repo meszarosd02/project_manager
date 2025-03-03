@@ -24,6 +24,7 @@ export type Task = {
     priority: Priority,
     parentTaskId: number | undefined,
     parentTask: Task | undefined,
+    subTasks: Task[] | undefined,
     projectId: number,
     project: Project,
     createdAt: Date,

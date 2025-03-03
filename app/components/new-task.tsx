@@ -3,7 +3,7 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from "react";
 import { useAuth } from "./auth-provider";
 import { getAuthCookie } from "../actions/user";
-import { createTask } from "../actions/task";
+import { createSubTask, createTask, getTask } from "../actions/task";
 import { useRouter } from "next/navigation";
 import { Priority } from "@prisma/client";
 import { Project, Task } from "../lib/types";
@@ -47,8 +47,11 @@ export default function NewTask() {
     const handleTaskCreation = async (e: any) => {
         e.preventDefault();
         if(!currentProject?.id) return;
-        const new_task = await createTask(taskName, taskDesc, currentProject?.id, Priority.MEDIUM);
-        setNewTask(new_task);
+        /*const new_task = await createTask(taskName, taskDesc, currentProject?.id, Priority.MEDIUM);
+        setNewTask(new_task);*/
+        //const new_task = await createSubTask(6, "research github auth 2", "teszt", Priority.LOW);
+        const task = await getTask(4);
+        console.log(task);
     }
 
     return (

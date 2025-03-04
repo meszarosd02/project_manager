@@ -11,7 +11,7 @@ export default function Home() {
 
     useEffect(() => {
         const userLogin = async () => {
-            await authContext?.login(1);
+            //await authContext?.login(1);
         }
         userLogin();
     }, [])

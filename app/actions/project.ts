@@ -1,7 +1,8 @@
 "use server";
 
+import { TaskState } from "@prisma/client";
 import { prisma } from "../lib/prisma";
-import { Project } from "../lib/types";
+import { Project } from '../lib/types';
 
 export async function getProjects(withTasks: boolean = false){
     return await prisma.project.findMany({

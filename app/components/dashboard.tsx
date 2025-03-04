@@ -6,6 +6,8 @@ import { useAuth } from "./auth-provider";
 import Tasks from "./tasks";
 import { useRouter } from "next/navigation";
 import { useProject } from "./project-provider";
+import ProjectProgress from "./project-progress";
+import { getAuthCookie } from "../actions/user";
 
 export default function Dashboard(){
     const [isLoading, setIsLoading] = useState<Boolean>(true);
@@ -16,7 +18,20 @@ export default function Dashboard(){
     const projectContext = useProject();
 
     useEffect(() => {
+        const checkUserLoggedIn = async () => {
+            const userId = await getAuthCookie();
+            if(!userId) {
+                router.push("/");
+            }else{
+                authContext?.login(userId);
+            }
+        }
+        checkUserLoggedIn();
+    }, [])
+
+    useEffect(() => {
         const getCurrentProject = async () => {
+            console.log(authContext);
             if(!authContext?.user?.projects) return;
             projectContext?.setProjectContext(authContext?.user?.projects[0].id);
             setIsLoading(false);
@@ -52,7 +67,7 @@ export default function Dashboard(){
                 <div className="bg-slate-500 row-span-11 col-span-12">
                     <div className="grid grid-cols-12 grid-rows-12 gap-2 p-2 h-full">
                         <div className="bg-slate-600 col-span-3 row-span-2">
-                            
+                            <ProjectProgress></ProjectProgress>
                         </div>
                         <div className="bg-slate-600 col-span-3 row-span-2">
                             asd3

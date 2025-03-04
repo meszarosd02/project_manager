@@ -40,6 +40,7 @@ export default function ProjectDisplay(){
 
     const handleLogin = async () => {
         setAuthCookie(1);
+        router.push("/dashboard");
     }
 
     const ProjectList = () => {

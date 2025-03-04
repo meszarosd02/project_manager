@@ -44,15 +44,17 @@ export async function getTask(taskId: number): Promise<Task>{
     return task;
 }
 
-export async function getProjectTaskCount(projectId: number){
+export async function getRootTasks(projectId: number){
     return await prisma.task.findMany({
-        include: {
-            _count: {
-                select: {
-                    
-                }
-            }
-        },
+        where: {
+            projectId: projectId,
+            parentTaskId: null
+        }
+    })
+}
+
+export async function getProjectTaskCount(projectId: number){
+    return await prisma.task.count({
         where: {
             projectId: projectId
         }
@@ -60,14 +62,7 @@ export async function getProjectTaskCount(projectId: number){
 }
 
 export async function getProjectTaskCountByState(projectId: number, taskState: TaskState){
-    return await prisma.task.findMany({
-        include: {
-            _count: {
-                select: {
-
-                }
-            }
-        },
+    return await prisma.task.count({
         where: {
             projectId: projectId,
             task_state: taskState

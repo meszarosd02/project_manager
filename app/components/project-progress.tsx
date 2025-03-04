@@ -1,29 +1,36 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { defaultProject } from "../lib/defaults";
-import { Project } from "../lib/types";
-import { getProjects } from "../actions/project";
 import { useProject } from "./project-provider";
+import { getProjectTaskCount, getProjectTaskCountByState } from "../actions/task";
+import { TaskState } from "@prisma/client";
 
 
 
 export default function ProjectProgress(){
-    const [project, setProject] = useState<Project>(defaultProject);
+    const [allTaskCount, setAllTaskCount] = useState<number>(0);
+    const [doneTaskCount, setDoneTaskCount] = useState<number>(0);
 
     const projectContext = useProject();
 
     useEffect(() => {
-        const fetchProject = async () => {
-            const fetched_project = await getProjects()
-        };
-
-        fetchProject();
-    }, []);
+        const getTaskCount = async () => {
+            if(!projectContext?.project) return;
+            const tasks = await getProjectTaskCount(projectContext?.project.id)
+            setAllTaskCount(tasks)
+            const doneTasks = await getProjectTaskCountByState(projectContext.project.id, TaskState.DONE);
+            setDoneTaskCount(doneTasks);
+        }
+        getTaskCount();
+    }, [projectContext]);
 
     return (
         <>
-
+            <div className="flex flex-row justify-center align-middle">
+                <div>
+                    <p>{doneTaskCount || ""} / {allTaskCount || ""}</p>
+                </div>
+            </div>
         </>
     );
 }

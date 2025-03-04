@@ -31,7 +31,6 @@ export default function Dashboard(){
 
     useEffect(() => {
         const getCurrentProject = async () => {
-            console.log(authContext);
             if(!authContext?.user?.projects) return;
             projectContext?.setProjectContext(authContext?.user?.projects[0].id);
             setIsLoading(false);

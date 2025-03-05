@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useProject } from "./project-provider";
 import { getProjectTaskCount, getProjectTaskCountByState } from "../actions/task";
 import { TaskState } from "@prisma/client";
+import CircularProgressBar from "./circular-progressbar";
 
 
 
@@ -27,8 +28,9 @@ export default function ProjectProgress(){
     return (
         <>
             <div className="flex flex-row justify-center align-middle">
-                <div>
+                <div className="">
                     <p>{doneTaskCount || ""} / {allTaskCount || ""}</p>
+                    <progress value={doneTaskCount} max={allTaskCount}></progress>
                 </div>
             </div>
         </>

@@ -50,7 +50,7 @@ export async function getRootTasks(projectId: number){
             projectId: projectId,
             parentTaskId: null
         }
-    })
+    }) as unknown as Task[]
 }
 
 export async function getProjectTaskCount(projectId: number){

@@ -8,9 +8,12 @@ import { useRouter } from "next/navigation";
 import { useProject } from "./project-provider";
 import ProjectProgress from "./project-progress";
 import { getAuthCookie } from "../actions/user";
+import { Task } from "../lib/types";
+import { getRootTasks } from "../actions/task";
 
 export default function Dashboard(){
     const [isLoading, setIsLoading] = useState<Boolean>(true);
+    const [rootTasks, setRootTasks] = useState<Task[]>([]);
 
     const router = useRouter();
 
@@ -41,6 +44,11 @@ export default function Dashboard(){
     useEffect(() => {
         if(!projectContext) return;
         console.log(projectContext.project);
+        const getRootTasksLocal = async () => {
+            const tasks = await getRootTasks(projectContext.project.id);
+            setRootTasks(tasks);
+        }
+        getRootTasksLocal()
     }, [projectContext])
 
     if(isLoading) return(
@@ -65,14 +73,14 @@ export default function Dashboard(){
                 </div>
                 <div className="bg-slate-500 row-span-11 col-span-12">
                     <div className="grid grid-cols-12 grid-rows-12 gap-2 p-2 h-full">
-                        <div className="bg-slate-600 col-span-3 row-span-2">
+                        <div className="bg-slate-600 col-span-3 row-span-2 rounded-lg shadow-lg">
                             <ProjectProgress></ProjectProgress>
                         </div>
-                        <div className="bg-slate-600 col-span-3 row-span-2">
+                        <div className="bg-slate-600 col-span-3 row-span-2 rounded-lg shadow-lg">
                             asd3
                         </div>
                         <div className="bg-slate-600 col-span-12 row-span-4">
-                            {projectContext?.project?.tasks && <Tasks tasks={projectContext?.project?.tasks}></Tasks>}
+                            <Tasks tasks={rootTasks}></Tasks>
                         </div>
                     </div>
                 </div>

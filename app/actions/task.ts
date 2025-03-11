@@ -49,6 +49,9 @@ export async function getRootTasks(projectId: number){
         where: {
             projectId: projectId,
             parentTaskId: null
+        },
+        include: {
+            subTasks: true
         }
     }) as unknown as Task[]
 }
